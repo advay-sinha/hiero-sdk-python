@@ -7,7 +7,8 @@ This changelog is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.
 ## [Unreleased]
 
 ### Added
-
+- Added `docs/sdk_developers/training/precheck_error.md` covering the precheck vs. receipt failure model and handling guidance.
+- Added `examples/errors/precheck_error.py` demonstrating how to catch and log `PrecheckError`.
 - Add detail to `token_airdrop.py` and `token_airdrop_cancel.py`
 - Add workflow: github bot to respond to unverified PR commits (#750)
 - Add workflow: bot workflow which notifies developers of workflow failures in their pull requests.
