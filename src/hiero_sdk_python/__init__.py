@@ -15,6 +15,7 @@ from .account.account_records_query import AccountRecordsQuery
 # Crypto
 from .crypto.private_key import PrivateKey
 from .crypto.public_key import PublicKey
+from .crypto.evm_address import EvmAddress
 
 # Tokens
 from .tokens.token_create_transaction import TokenCreateTransaction
@@ -58,6 +59,7 @@ from .transaction.transaction_id import TransactionId
 from .transaction.transaction_receipt import TransactionReceipt
 from .transaction.transaction_response import TransactionResponse
 from .transaction.transaction_record import TransactionRecord
+from .transaction.batch_transaction import BatchTransaction
 
 # Response / Codes
 from .response_code import ResponseCode
@@ -164,6 +166,7 @@ __all__ = [
     # Crypto
     "PrivateKey",
     "PublicKey",
+    "EvmAddress",
 
     # Tokens
     "TokenCreateTransaction",
@@ -206,6 +209,7 @@ __all__ = [
     "TransactionReceipt",
     "TransactionResponse",
     "TransactionRecord",
+    "BatchTransaction",
 
     # Response
     "ResponseCode",

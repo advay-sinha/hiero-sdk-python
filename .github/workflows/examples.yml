@@ -19,7 +19,7 @@ jobs:
           egress-policy: audit
 
       - name: Checkout repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3
         with:
           fetch-depth: 0
           
@@ -46,15 +46,16 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          files=$(ls examples/*.py)
+          export PYTHONPATH="$PWD"
 
-          for file in $files;
-          do
+          files=$(find examples -name "*.py" -type f ! -name "__init__.py")
+
+          for file in $files; do
             echo -e "\n************ ${file} ************"
 
-            module="examples.$(basename "$file" .py)"
+            # Convert path to module name
+            module=$(realpath --relative-to="$PWD" "$file" | sed 's|/|.|g' | sed 's|.py$||')
 
-            # Run the example and capture both stdout and stderr
             if ! output=$(uv run -m "$module" 2>&1); then
               echo -e "\n❌ Example failed: ${file}"
               echo "************ Error Output ************"
