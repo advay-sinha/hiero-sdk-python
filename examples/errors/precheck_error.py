@@ -26,7 +26,12 @@ load_dotenv()
 
 
 NETWORK_NAME = os.getenv("NETWORK", "testnet").lower()
-BOGUS_ACCOUNT_ID = os.getenv("PRECHECK_ERROR_RECIPIENT", "0.0.999999")
+BOGUS_ACCOUNT_ID_STR = os.getenv("PRECHECK_ERROR_RECIPIENT", "0.0.999999")
+try:
+    BOGUS_ACCOUNT_ID = AccountId.from_string(BOGUS_ACCOUNT_ID_STR)
+except (TypeError, ValueError):
+    print("Missing or invalid PRECHECK_ERROR_RECIPIENT in .env")
+    sys.exit(1)
 
 
 def setup_client():
@@ -54,7 +59,7 @@ def trigger_precheck_error(client, operator_id):
     try:
         (
             TransferTransaction()
-            .add_hbar_transfer(operator_id, -Hbar.from_tinybars(10_000))
+            .add_hbar_transfer(operator_id, Hbar.from_tinybars(-10_000))
             .add_hbar_transfer(BOGUS_ACCOUNT_ID, Hbar.from_tinybars(10_000))
             .freeze_with(client)
             .execute(client)
